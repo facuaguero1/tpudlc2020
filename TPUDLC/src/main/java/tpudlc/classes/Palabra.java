@@ -18,6 +18,7 @@ public class Palabra {
     
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id_palabra")
     private Long idPalabra;
     
     @Column(unique = true)

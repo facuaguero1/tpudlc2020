@@ -17,9 +17,10 @@ public class Documento {
     
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id_documento")
     private Integer idDocumento;
     
-    @Column(unique = true)
+    @Column(unique = true, name = "nombre_archivo")
     private String nombreArchivo;
 
     public Integer getIdDocumento() {

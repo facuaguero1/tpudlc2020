@@ -17,14 +17,15 @@ public class Posteo {
     
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id_posteo")
     private Integer idPosteo;
     
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="idPalabra")
+    @JoinColumn(name="id_palabra")
     private Palabra palabra;
     
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="idDocumento")
+    @JoinColumn(name="id_documento")
     private Documento documento;
     
     @Column
