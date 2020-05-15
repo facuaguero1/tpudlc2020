@@ -21,4 +21,31 @@ public class Documento {
     
     @Column(unique = true)
     private String nombreArchivo;
+
+    public Integer getIdDocumento() {
+        return idDocumento;
+    }
+
+    public String getNombreArchivo() {
+        return nombreArchivo;
+    }
+
+    public void setIdDocumento(Integer idDocumento) {
+        this.idDocumento = idDocumento;
+    }
+
+    public void setNombreArchivo(String nombreArchivo) {
+        this.nombreArchivo = nombreArchivo;
+    }
+
+    public Documento(String nombreArchivo) {
+        this.nombreArchivo = nombreArchivo;
+    }
+
+    public Documento() {
+    }
+    
+    
+    
+    
 }

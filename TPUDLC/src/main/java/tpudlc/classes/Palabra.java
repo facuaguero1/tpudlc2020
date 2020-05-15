@@ -28,6 +28,37 @@ public class Palabra {
     
     @Column
     private Integer maxtf;
-    
+
+    public Long getIdPalabra() {
+        return idPalabra;
+    }
+
+    public String getPalabra() {
+        return palabra;
+    }
+
+    public Integer getNr() {
+        return nr;
+    }
+
+    public Integer getMaxtf() {
+        return maxtf;
+    }
+
+    public void setIdPalabra(Long idPalabra) {
+        this.idPalabra = idPalabra;
+    }
+
+    public void setPalabra(String palabra) {
+        this.palabra = palabra;
+    }
+
+    public void setNr(Integer nr) {
+        this.nr = nr;
+    }
+
+    public void setMaxtf(Integer maxtf) {
+        this.maxtf = maxtf;
+    }
     
 }

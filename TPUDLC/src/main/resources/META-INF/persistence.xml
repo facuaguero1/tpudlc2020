@@ -2,6 +2,10 @@
 <persistence version="2.2" xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_2.xsd">
   <!-- Define Persistence Unit -->
   <persistence-unit name="tpudlc_persistencia">
+    <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+    <class>tpudlc.classes.Documento</class>
+    <class>tpudlc.classes.Palabra</class>
+    <class>tpudlc.classes.Posteo</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/tpudlc"/>
       <property name="javax.persistence.jdbc.user" value="postgres"/>

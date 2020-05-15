@@ -29,5 +29,33 @@ public class Posteo {
     
     @Column
     private Integer tf;
+
+    public Integer getIdPosteo() {
+        return idPosteo;
+    }
+
+    public Palabra getPalabra() {
+        return palabra;
+    }
+
+    public Documento getDocumento() {
+        return documento;
+    }
+
+    public Integer getTf() {
+        return tf;
+    }
+
+    public void setPalabra(Palabra palabra) {
+        this.palabra = palabra;
+    }
+
+    public void setDocumento(Documento documento) {
+        this.documento = documento;
+    }
+
+    public void setTf(Integer tf) {
+        this.tf = tf;
+    }
     
 }
