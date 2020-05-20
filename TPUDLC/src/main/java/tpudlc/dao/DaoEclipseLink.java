@@ -85,7 +85,7 @@ public abstract class DaoEclipseLink<E extends DalEntity, K> implements Dao<E, K
             entityManager.getTransaction().begin();
             for(int i = 0; i < listSize; i++) {
                 E managed = entityManager.merge(list.get(i));
-                entityManager.persist( list.get(i) );
+                entityManager.persist( managed );
                 if(i % 1000 == 0 || i == listSize-1) {
                     entityManager.flush();
                     entityManager.clear();

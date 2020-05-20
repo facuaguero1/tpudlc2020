@@ -27,7 +27,7 @@ public class IndexadorEndpoint {
         }catch (Exception ex) {
             throw new TechnicalException(ex);
         }
-        return Response.ok("Proceso de indexacion iniciado (200)").build();
+        return Response.ok("Proceso de indexacion finalizado. (200)").build();
     }
     
 }
