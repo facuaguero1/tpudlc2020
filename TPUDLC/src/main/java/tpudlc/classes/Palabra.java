@@ -14,7 +14,7 @@ import tpudlc.dao.DalEntity;
             @NamedQuery(name = "Palabra.findMaxId", query = "SELECT p FROM Palabra p ORDER BY p.idPalabra DESC")
         }
 )
-public class Palabra implements DalEntity{
+public class Palabra implements DalEntity {
     
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

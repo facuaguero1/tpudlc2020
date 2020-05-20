@@ -39,9 +39,9 @@ public class PosteoDao extends DaoEclipseLink<Posteo, Integer> {
         return resp;
     }
     
-    public List<Posteo> retrieveOrdered(Palabra pal) {
+    public List<Posteo> retrieveOrdered(int cantidad, Palabra pal) {
         List<Posteo> resp = entityManager.createNamedQuery("Posteo.findByPalabraOrderedByTf")
-                .setParameter("palabra", pal)
+                .setParameter("palabra", pal).setMaxResults(cantidad)
                 .getResultList();
         
         return resp;

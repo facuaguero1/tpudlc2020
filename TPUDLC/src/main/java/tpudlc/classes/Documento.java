@@ -49,4 +49,7 @@ public class Documento implements DalEntity {
     public Documento() {
     }
     
+    @Override
+    public int hashCode() { return this.nombreArchivo.hashCode(); }
+    
 }
