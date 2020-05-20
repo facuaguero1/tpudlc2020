@@ -1,19 +1,20 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package tpudlc.classes;
 
 import javax.persistence.*;
+import tpudlc.dao.DalEntity;
 
-/**
- *
- * @author facundo
- */
+
 @Entity
 @Table(name = "DOCUMENTOS")
-public class Documento {
+@NamedQueries(
+        {
+            @NamedQuery(name = "Documento.findAll", query = "SELECT d FROM Documento d"),
+            @NamedQuery(name = "Documento.findById", query = "SELECT d FROM Documento d WHERE d.idDocumento = :idDocumento"),
+            @NamedQuery(name = "Documento.findByNombreArchivo", query = "SELECT d FROM Documento d WHERE d.nombreArchivo = :nombreArchivo"),
+            @NamedQuery(name = "Documento.findMaxId", query = "SELECT d FROM Documento d ORDER BY d.idDocumento DESC")
+        }
+)
+public class Documento implements DalEntity {
     
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -22,6 +23,8 @@ public class Documento {
     
     @Column(unique = true, name = "nombre_archivo")
     private String nombreArchivo;
+    
+    
 
     public Integer getIdDocumento() {
         return idDocumento;
@@ -45,8 +48,5 @@ public class Documento {
 
     public Documento() {
     }
-    
-    
-    
     
 }

@@ -10,20 +10,22 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.persistence.*;
-import tpudlc.classes.Documento;
-import tpudlc.gestores.GestorDocumentos;
-import tpudlc.gestores.GestorPalabras;
-import tpudlc.gestores.GestorPosteos;
+import tpudlc.classes.*;
+import tpudlc.classes.daos.*;
+import tpudlc.gestores.*;
 
 
 @WebServlet(name = "Indexador", urlPatterns = {"/IndexarServlet"})
 public class Indexador extends HttpServlet {
     
-    
+    /*
     @Inject private GestorDocumentos gestorDocumentos;
     @Inject private GestorPalabras gestorPalabras;
     @Inject private GestorPosteos gestorPosteos;
+    */
+    @Inject private DocumentoDao documentoDao;
+    @Inject private PalabraDao palabraDao;
+    @Inject private PosteoDao posteoDao;
     
     
     private final String directorioDocumentos = "/home/facundo/repositorios/DocumentosTP1/";
@@ -58,28 +60,20 @@ public class Indexador extends HttpServlet {
             }
         }
         
+      
         
         
         
+
         
         
+        Documento docPrueba = new Documento("nombreDeArchivo.txt");
+        Palabra palPrueba = new Palabra("otorrinolaringologia");
+        Posteo postPrueba = new Posteo(palPrueba, docPrueba);
         
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
+        docPrueba = documentoDao.create(docPrueba);
+        palPrueba = palabraDao.create(palPrueba);
+        postPrueba = posteoDao.create(postPrueba);
         
         
         
@@ -92,8 +86,12 @@ public class Indexador extends HttpServlet {
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Servlet Indexador at " + request.getContextPath() + "</h1>");
+            //out.println("<h1>" + documentoDao.retrieve(2).getNombreArchivo() + "</h1>");
             out.println("<h2>Indexando los documentos ubicados en el directorio: " + directorioDocumentos +"</h2>");
             out.println("<h3>Usted es el visitante número: " + visitas.toString() + "</h3>");
+            out.println(docPrueba.getNombreArchivo());
+            out.println(palPrueba.getPalabra());
+            out.println(postPrueba.getPalabra().getPalabra());
             /*
             List<Documento> documentos = gestorDocumentos.listarTodos();
             for (int i = 0; i < documentos.size(); i++){

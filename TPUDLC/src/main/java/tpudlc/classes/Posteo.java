@@ -1,19 +1,23 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package tpudlc.classes;
 
 import javax.persistence.*;
+import tpudlc.dao.DalEntity;
 
-/**
- *
- * @author facundo
- */
+
 @Entity
 @Table(name = "POSTEOS")
-public class Posteo {
+@NamedQueries(
+        {
+            @NamedQuery(name = "Posteo.findAll", query = "SELECT p FROM Posteo p"),
+            @NamedQuery(name = "Posteo.findById", query = "SELECT p FROM Posteo p WHERE p.idPosteo = :idPosteo"),
+            @NamedQuery(name = "Posteo.findByPalabra", query = "SELECT p FROM Posteo p WHERE p.palabra = :palabra"),
+            @NamedQuery(name = "Posteo.findByPalabraOrderedByTf", query = "SELECT p FROM Posteo p WHERE p.palabra = :palabra ORDER BY p.tf DESC"),
+            @NamedQuery(name = "Posteo.findByDocumento", query = "SELECT p FROM Posteo p WHERE p.documento = :documento"),
+            @NamedQuery(name = "Posteo.findByPalabraAndDocumento", query = "SELECT p FROM Posteo p WHERE p.palabra = :palabra AND p.documento = :documento"),
+            @NamedQuery(name = "Posteo.findMaxId", query = "SELECT p FROM Posteo p ORDER BY p.idPosteo DESC")
+        }
+)
+public class Posteo implements DalEntity {
     
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -31,6 +35,22 @@ public class Posteo {
     @Column
     private Integer tf;
 
+    public Posteo(Palabra palabra, Documento documento) {
+        this.palabra = palabra;
+        this.documento = documento;
+        this.tf = 0;
+    }
+    
+    public Posteo(Integer id, Palabra palabra, Documento documento) {
+        this.idPosteo = id;
+        this.palabra = palabra;
+        this.documento = documento;
+        this.tf = 0;
+    }
+    
+    public Posteo() {
+    }
+
     public Integer getIdPosteo() {
         return idPosteo;
     }
@@ -47,6 +67,10 @@ public class Posteo {
         return tf;
     }
 
+    public void setIdPosteo(Integer idPosteo) {
+        this.idPosteo = idPosteo;
+    }
+
     public void setPalabra(Palabra palabra) {
         this.palabra = palabra;
     }
@@ -58,5 +82,7 @@ public class Posteo {
     public void setTf(Integer tf) {
         this.tf = tf;
     }
+    
+    public void increaseTf() { this.tf++; }
     
 }

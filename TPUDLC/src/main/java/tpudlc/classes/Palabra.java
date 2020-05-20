@@ -1,25 +1,25 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package tpudlc.classes;
 
 import javax.persistence.*;
+import tpudlc.dao.DalEntity;
 
 
-/**
- *
- * @author facundo
- */
 @Entity
 @Table(name = "PALABRAS")
-public class Palabra {
+@NamedQueries(
+        {
+            @NamedQuery(name = "Palabra.findAll", query = "SELECT p from Palabra p"),
+            @NamedQuery(name = "Palabra.findById", query = "SELECT p from Palabra p WHERE p.idPalabra = :idPalabra"),
+            @NamedQuery(name = "Palabra.findByPalabra", query = "SELECT p from Palabra p WHERE p.palabra = :palabra"),
+            @NamedQuery(name = "Palabra.findMaxId", query = "SELECT p FROM Palabra p ORDER BY p.idPalabra DESC")
+        }
+)
+public class Palabra implements DalEntity{
     
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id_palabra")
-    private Long idPalabra;
+    private Integer idPalabra;
     
     @Column(unique = true)
     private String palabra;
@@ -30,7 +30,23 @@ public class Palabra {
     @Column
     private Integer maxtf;
 
-    public Long getIdPalabra() {
+    public Palabra(String palabra) {
+        this.palabra = palabra;
+        this.nr = 0;
+        this.maxtf = 0;
+    }
+    
+    public Palabra(Integer id, String palabra) {
+        this.idPalabra = id;
+        this.palabra = palabra;
+        this.nr = 0;
+        this.maxtf = 0;
+    }
+    
+    public Palabra() {
+    }
+
+    public Integer getIdPalabra() {
         return idPalabra;
     }
 
@@ -46,7 +62,7 @@ public class Palabra {
         return maxtf;
     }
 
-    public void setIdPalabra(Long idPalabra) {
+    public void setIdPalabra(Integer idPalabra) {
         this.idPalabra = idPalabra;
     }
 
@@ -60,6 +76,10 @@ public class Palabra {
 
     public void setMaxtf(Integer maxtf) {
         this.maxtf = maxtf;
+    }
+    
+    public void increaseNr() {
+        this.nr++;
     }
     
 }
