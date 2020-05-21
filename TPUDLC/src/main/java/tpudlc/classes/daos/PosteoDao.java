@@ -1,12 +1,11 @@
 package tpudlc.classes.daos;
 import java.util.List;
-import javax.enterprise.context.ApplicationScoped;
 import tpudlc.classes.Documento;
 import tpudlc.classes.Palabra;
 import tpudlc.classes.Posteo;
 import tpudlc.dao.DaoEclipseLink;
 
-//@ApplicationScoped
+
 public class PosteoDao extends DaoEclipseLink<Posteo, Integer> {
     
     public PosteoDao() {
@@ -57,6 +56,7 @@ public class PosteoDao extends DaoEclipseLink<Posteo, Integer> {
     
     public Integer maxId() {
         List<Posteo> resp = entityManager.createNamedQuery("Posteo.findMaxId")
+                .setMaxResults(1)
                 .getResultList();
         if (resp == null || resp.size() == 0) return 0;
         

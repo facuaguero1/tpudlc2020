@@ -48,8 +48,12 @@ public class Indexador {
         
         Pattern p = Pattern.compile("[a-zA-Z]+"); 
         Integer j = 0;
-        Integer indexados = 0;
         
+        /* Para poder hacer bulk inserts, es necesario asignar manualmente las
+            claves primarias, por lo que es necesario obtener el id más alto
+            de las palabras y de los posteos. Si la tabla está vacía, maxId()
+            devuelve 0.
+        */
         Integer idPal = palabraDao.maxId() + 1;
         Integer idPost = posteoDao.maxId() + 1;
         if(listaDocs.size() > 0){
@@ -67,6 +71,11 @@ public class Indexador {
                     documento = documentoDao.create(documento);
                 }
 
+                /* TODAS las tablas hash y arrays  de los cuales se sabe que van
+                    a contener una cantidad muy grande de objetos, son
+                    inicializados con un tamaño exagerado, para evitar que sean
+                    necesarias las operaciones rehash y resize.
+                */
                 HashMap<String, Posteo> posteos= new HashMap(100000, 0.5f);
 
                 ArrayList<Palabra> palsPendientesCreacion = new ArrayList(50000);
@@ -85,11 +94,13 @@ public class Indexador {
                         if(pal.length() > 3) {
 
                             Palabra palabra = vocabulario.get(pal);
-                            if(palabra == null){
-                                palabra = new Palabra(idPal, pal);
-                                idPal++;
+                            if(palabra == null) {
+                                if(palabra == null){
+                                    palabra = new Palabra(idPal, pal);
+                                    idPal++;
+                                    palsPendientesCreacion.add(palabra);
+                                }
                                 vocabulario.put(palabra.getPalabra(), palabra);
-                                palsPendientesCreacion.add(palabra);
                             }
 
                             Posteo posteo = posteos.get(pal);
@@ -111,7 +122,11 @@ public class Indexador {
                         j++;
                     }
                 }
-
+                /* Para insertar un posteo en la DB, es necesario que la palabra
+                    y el documento que le corresponden ya se encuentren allí.
+                    Por eso, primero insertamos en la db todas las palabras
+                    nuevas, y recién luego insertamos los posteos.
+                */
                 palabraDao.bulkCreate(palsPendientesCreacion);
 
                 updatePalabras(vocabulario, posteos);
@@ -120,7 +135,6 @@ public class Indexador {
 
                 System.out.println("Se indexó el documento: " + doc.getName());
                 moveToIndexados(doc);
-                indexados++;
             }
         }
         System.out.println("----------------------------Proceso de indexación finalizado con éxito.");
@@ -143,7 +157,7 @@ public class Indexador {
                                 HashMap<String, Posteo> posteos) {
         Collection<Posteo> colPost= posteos.values();
         ArrayList<Posteo> arrayListPosteos = new ArrayList( colPost );
-        ArrayList<Palabra> arrayListPalabras = new ArrayList(100000);
+        ArrayList<Palabra> arrayListPalabras = new ArrayList( vocabulario.size() );
         for(Posteo posteo: arrayListPosteos) {
             Palabra palabra = posteo.getPalabra();
             palabra.increaseNr();

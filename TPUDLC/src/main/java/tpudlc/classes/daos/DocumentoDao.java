@@ -1,8 +1,6 @@
 package tpudlc.classes.daos;
 import java.util.List;
-import javax.persistence.Query;
 import tpudlc.classes.Documento;
-import tpudlc.commons.exceptions.TechnicalException;
 import tpudlc.dao.DaoEclipseLink;
 
 

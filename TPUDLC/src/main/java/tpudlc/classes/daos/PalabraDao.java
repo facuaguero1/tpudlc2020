@@ -6,7 +6,6 @@ import tpudlc.classes.Palabra;
 import tpudlc.dao.DaoEclipseLink;
 
 
-//@ApplicationScoped
 public class PalabraDao extends DaoEclipseLink<Palabra, Integer> {
     
     public PalabraDao() {
@@ -33,6 +32,7 @@ public class PalabraDao extends DaoEclipseLink<Palabra, Integer> {
     
     public Integer maxId() {
         List<Palabra> resp = entityManager.createNamedQuery("Palabra.findMaxId")
+                .setMaxResults(1)
                 .getResultList();
         if (resp == null || resp.size() == 0) return 0;
         

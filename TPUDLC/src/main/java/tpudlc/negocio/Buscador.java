@@ -29,7 +29,7 @@ public class Buscador {
     
     public List<String> buscar(String query) {
         
-        /* Calculo de la cantidad de documentos indexados para calcular
+        /* Cálculo de la cantidad de documentos indexados para calcular
             el logaritmo más adelante.
         */
         File fileDirectorioDocs = new File(directorioIndexados);
@@ -80,7 +80,6 @@ public class Buscador {
                     while( it.hasNext() ) {
                         Map.Entry<Documento, Double> par = (Map.Entry) it.next();
                         Documento docu = par.getKey();
-                        //System.out.println("Será el iterador?--------------  " + doc.getNombreArchivo());
                         Double punt = par.getValue();
                         
                         ContenedorDocumento cont = new ContenedorDocumento(
