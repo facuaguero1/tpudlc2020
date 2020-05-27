@@ -25,7 +25,7 @@ public class Documento implements DalEntity {
     @Column(unique = true, name = "nombre_archivo")
     private String nombreArchivo;
     
-    @Column(unique = true, name = "primeras_lineas")
+    @Column(unique = false, name = "primeras_lineas")
     private String primerasLineas;
     
     
@@ -51,8 +51,8 @@ public class Documento implements DalEntity {
     }
     
     public String getPrimerasLineas() {
-        return primerasLineas;
-    }
+        return this.primerasLineas;
+      }
 
     public void setPrimerasLineas(String primerasLineas) {
         this.primerasLineas = primerasLineas;

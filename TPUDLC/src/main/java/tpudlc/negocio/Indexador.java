@@ -28,7 +28,7 @@ public class Indexador {
     @Inject private PosteoDao posteoDao;
     
     public static final String directorioDocumentos = "C:\\Users\\NOTEBOOK HP\\Desktop\\Facultad\\4to año\\DLC\\TPU\\DocumentosTP1";
-    public static final String directorioIndexados =  directorioDocumentos + "\\indexados\\";
+    public static final String directorioIndexados = "C:\\Users\\NOTEBOOK HP\\Desktop\\Facultad\\4to año\\DLC\\TPU\\DocumentosTP1\\indexados\\";
     
     
     
@@ -82,8 +82,13 @@ public class Indexador {
 
                 BufferedReader br = new BufferedReader(new FileReader(doc)); 
                 String renglon;
+                
+                //Contador para quedarse con las 2 primeras líneas
+                int lineCount = 0;
+                String primerasLineas = "";
                 while ((renglon = br.readLine()) != null) {
-
+                    if( 0 <= lineCount && lineCount <= 2)
+                         primerasLineas += renglon + "- ";
                     Matcher m = p.matcher(renglon);
 
                     while (m.find()) { 
@@ -120,8 +125,16 @@ public class Indexador {
 
                         }
                         j++;
+                    
                     }
+                    
+                lineCount++;       
                 }
+                
+                documento.setPrimerasLineas(primerasLineas);
+                documentoDao.update(documento);
+                System.out.println("Documento"+ documento.getNombreArchivo() +" actualizado correctamente.");
+                    
                 /* Para insertar un posteo en la DB, es necesario que la palabra
                     y el documento que le corresponden ya se encuentren allí.
                     Por eso, primero insertamos en la db todas las palabras
@@ -178,12 +191,13 @@ public class Indexador {
     private void moveToIndexados(File file) {
         try{
             Path temp = Files.move
-                ( Paths.get( directorioDocumentos + file.getName() ),
+                ( Paths.get( directorioDocumentos +"\\"+file.getName() ),
                   Paths.get(directorioIndexados + file.getName() ) );
             System.out.println("        El documento fue reubicado.");
         
         }catch (IOException ex){
-            System.out.println("------------------------------------ERROR AL MOVER EL ARCHIVO: " + file.getName());
+            System.out.println("------------------------------------ERROR AL MOVER EL ARCHIVO de: " + directorioDocumentos + file.getName()
+                    + "\\n a: "+ directorioIndexados + file.getName());
         }
     }
                 
