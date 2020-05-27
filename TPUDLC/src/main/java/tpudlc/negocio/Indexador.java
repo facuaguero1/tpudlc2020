@@ -27,8 +27,8 @@ public class Indexador {
     @Inject private PalabraDao palabraDao;
     @Inject private PosteoDao posteoDao;
     
-    public static final String directorioDocumentos = "/home/facundo/repositorios/DocumentosTP1/";
-    public static final String directorioIndexados =  directorioDocumentos + "indexados/";
+    public static final String directorioDocumentos = "C:\\Users\\NOTEBOOK HP\\Desktop\\Facultad\\4to año\\DLC\\TPU\\DocumentosTP1";
+    public static final String directorioIndexados =  directorioDocumentos + "\\indexados\\";
     
     
     

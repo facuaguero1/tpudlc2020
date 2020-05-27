@@ -15,6 +15,7 @@ import tpudlc.dao.DalEntity;
         }
 )
 public class Documento implements DalEntity {
+
     
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -23,6 +24,9 @@ public class Documento implements DalEntity {
     
     @Column(unique = true, name = "nombre_archivo")
     private String nombreArchivo;
+    
+    @Column(unique = true, name = "primeras_lineas")
+    private String primerasLineas;
     
     
 
@@ -45,6 +49,15 @@ public class Documento implements DalEntity {
     public Documento(String nombreArchivo) {
         this.nombreArchivo = nombreArchivo;
     }
+    
+    public String getPrimerasLineas() {
+        return primerasLineas;
+    }
+
+    public void setPrimerasLineas(String primerasLineas) {
+        this.primerasLineas = primerasLineas;
+    }
+
 
     public Documento() {
     }
