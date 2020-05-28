@@ -91,7 +91,7 @@ public class Indexador {
                         String pal = m.group().toLowerCase();
 
 
-                        if(pal.length() > 3) {
+                        //if(pal.length() > 3) {
 
                             Palabra palabra = vocabulario.get(pal);
                             if(palabra == null) {
@@ -118,7 +118,7 @@ public class Indexador {
                                 System.out.println( "-----------------------palabras distintas:" + tamanoVoc.toString() );
                             }
 
-                        }
+                        //}
                         j++;
                     }
                 }

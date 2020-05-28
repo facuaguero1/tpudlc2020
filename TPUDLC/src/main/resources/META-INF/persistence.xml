@@ -3,7 +3,6 @@
   <!-- Define Persistence Unit -->
   <persistence-unit name="tpudlc_persistencia" transaction-type="RESOURCE_LOCAL">
     <jta-data-source>tpudlcResource</jta-data-source>
-    <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
     <class>tpudlc.classes.Documento</class>
     <class>tpudlc.classes.Palabra</class>
     <class>tpudlc.classes.Posteo</class>
