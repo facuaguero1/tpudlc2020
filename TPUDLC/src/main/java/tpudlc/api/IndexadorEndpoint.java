@@ -9,7 +9,8 @@ import tpudlc.negocio.Indexador;
 
 @Path("/indexar")
 public class IndexadorEndpoint {
-    
+    int cantIdx;
+    RespIndex resp = new RespIndex();
     @Inject private Indexador indexador;
     
     @GET
@@ -23,11 +24,12 @@ public class IndexadorEndpoint {
             }
         });
         thread.start();*/
-            indexador.indexar();
+            cantIdx = indexador.indexar();
         }catch (Exception ex) {
             throw new TechnicalException(ex);
         }
-        return Response.ok("Proceso de indexacion finalizado. (200)").build();
+         resp.setRespTxt("Proceso de indexacion finalizado. ("+cantIdx+") documentos indexados");
+        return Response.ok(resp).build();
     }
     
 }

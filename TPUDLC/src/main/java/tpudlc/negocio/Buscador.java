@@ -27,7 +27,7 @@ public class Buscador {
     
     private final String directorioIndexados = Indexador.directorioIndexados;
     
-    public List<String> buscar(String query) {
+    public List<Documento> buscar(String query) {
         
         /* Cálculo de la cantidad de documentos indexados para calcular
             el logaritmo más adelante.
@@ -36,7 +36,7 @@ public class Buscador {
         Integer N = fileDirectorioDocs.listFiles().length;
         
         // Inicializacion de la variable que contendrá la respuesta.
-        List<String> resp = new ArrayList();
+        List<Documento> resp = new ArrayList();
         
         Pattern p = Pattern.compile("[a-zA-Z]+");
         Matcher m = p.matcher(query);
@@ -92,18 +92,14 @@ public class Buscador {
                     // Ahora los ordena de acuerdo a sus puntajes.
                     Collections.sort(listaDocumentos,
                                     new ComparadorPuntajeDocumentos() );
-                    
+
                     
                     for(int i = listaDocumentos.size()-1; i > -1; i--) {
-                        Documento docFinal = listaDocumentos.get(i)
-                                                            .getDoc();
-                        String pathArchivo = directorioIndexados + docFinal.getNombreArchivo();
-                        
-                        resp.add(pathArchivo);
-                    }
+                        Documento docResp = listaDocumentos.get(i).getDoc();
+                        resp.add(docResp);
+                    }              
                 }
-            }
-            
+            }            
         }
         
         return resp;

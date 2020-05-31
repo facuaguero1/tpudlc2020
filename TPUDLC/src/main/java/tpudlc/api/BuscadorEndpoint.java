@@ -21,7 +21,7 @@ public class BuscadorEndpoint {
     @Produces("application/json")
     public Response buscar(@PathParam("query") String query){
         
-        List<String> resp = buscador.buscar(query);
+        List<Documento> resp = buscador.buscar(query);
 
         return Response.ok(resp).build();
     }

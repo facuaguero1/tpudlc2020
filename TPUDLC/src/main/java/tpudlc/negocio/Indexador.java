@@ -27,13 +27,14 @@ public class Indexador {
     @Inject private PalabraDao palabraDao;
     @Inject private PosteoDao posteoDao;
     
-    public static final String directorioDocumentos = "/home/facundo/repositorios/DocumentosTP1/";
-    public static final String directorioIndexados =  directorioDocumentos + "indexados/";
+    public static final String directorioDocumentos = "C:\\Users\\NOTEBOOK HP\\Desktop\\Facultad\\4to año\\DLC\\TPU\\DocumentosTP1\\";
+    public static final String directorioIndexados =  "C:\\Users\\NOTEBOOK HP\\Desktop\\Facultad\\4to año\\DLC\\TPU\\DocumentosTP1\\indexados\\";
+    private int cantIdx;
     
     
-    
-    public void indexar() throws IOException{
+    public int indexar() throws IOException{
         
+        cantIdx = 0;
         File fileDirectorioDocs = new File(directorioDocumentos);
         
         File[] arrayDocumentos = fileDirectorioDocs.listFiles();
@@ -82,8 +83,13 @@ public class Indexador {
 
                 BufferedReader br = new BufferedReader(new FileReader(doc)); 
                 String renglon;
+                String primerasLineas = "";
+                int lineCount = 0;
                 while ((renglon = br.readLine()) != null) {
-
+                    
+                    if( 0 <= lineCount && lineCount <= 2)
+                         primerasLineas += renglon + "- ";
+                    
                     Matcher m = p.matcher(renglon);
 
                     while (m.find()) { 
@@ -121,7 +127,12 @@ public class Indexador {
                         //}
                         j++;
                     }
+                    lineCount++;
                 }
+                br.close();
+                documento.setPrimerasLineas(primerasLineas);
+                documento.setPath(directorioIndexados + documento.getNombreArchivo());
+                documentoDao.update(documento);
                 /* Para insertar un posteo en la DB, es necesario que la palabra
                     y el documento que le corresponden ya se encuentren allí.
                     Por eso, primero insertamos en la db todas las palabras
@@ -132,12 +143,16 @@ public class Indexador {
                 updatePalabras(vocabulario, posteos);
 
                 persistirPosteos(posteos);
-
+                
+               
                 System.out.println("Se indexó el documento: " + doc.getName());
                 moveToIndexados(doc);
+                cantIdx++;
             }
+            
         }
         System.out.println("----------------------------Proceso de indexación finalizado con éxito.");
+        return cantIdx;
     }
     
     private HashMap<String, Palabra> iniciarVocabulario() {
@@ -180,10 +195,11 @@ public class Indexador {
             Path temp = Files.move
                 ( Paths.get( directorioDocumentos + file.getName() ),
                   Paths.get(directorioIndexados + file.getName() ) );
-            System.out.println("        El documento fue reubicado.");
+            System.out.println("        El documento " + file.getName()+ "fue reubicado.");
         
         }catch (IOException ex){
             System.out.println("------------------------------------ERROR AL MOVER EL ARCHIVO: " + file.getName());
+            System.out.println(ex.toString());
         }
     }
                 
