@@ -75,6 +75,6 @@ public class Documento implements DalEntity {
     }
     
     @Override
-    public int hashCode() { return this.nombreArchivo.hashCode(); }
+    public int hashCode() { return this.idDocumento.hashCode(); }
     
 }

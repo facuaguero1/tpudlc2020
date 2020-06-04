@@ -1,0 +1,6 @@
+No fue subida la parte del proyecto que contiene la interfaz para el usuario final,
+ya que fue construida con Angular 9 y la carpeta tiene un tamaño aproximado de 350 MB.
+
+Sin embargo está el código disponible en caso de que lo soliciten.
+
+Saludos!

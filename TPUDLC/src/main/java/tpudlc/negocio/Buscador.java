@@ -69,9 +69,14 @@ public class Buscador {
                         mapDocumentos.put(doc, 0.0);
                     }
                     // Suma el puntaje al documento correspondiente.
-                    mapDocumentos.put(doc, mapDocumentos.get(doc) + puntaje);
+                    Double puntTemp = mapDocumentos.get(doc) + puntaje;
+                    mapDocumentos.remove(doc);
+                    mapDocumentos.put(doc, puntTemp);
                     
-                    /* Ahora convierte el HashMap en lista para poder
+                           
+                }
+            }   
+             /* Ahora convierte el HashMap en lista para poder
                         hacer el ordenamiento en base a los puntajes.
                     */
                     ArrayList<ContenedorDocumento> listaDocumentos = new ArrayList();
@@ -97,9 +102,7 @@ public class Buscador {
                     for(int i = listaDocumentos.size()-1; i > -1; i--) {
                         Documento docResp = listaDocumentos.get(i).getDoc();
                         resp.add(docResp);
-                    }              
-                }
-            }            
+                    }      
         }
         
         return resp;
